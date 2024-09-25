@@ -9,8 +9,10 @@ function CardView({ card, handleDeleteCard, deckid }) {
       <p>
         {card.back}
       </p>
-      <Link className="genericButton" to={`/decks/${deckid}/cards/${card.id}/edit`}>Edit</Link>
-      <button className="deleteButton" onClick={() => handleDeleteCard(card)}>Delete</button>
+      <div className="cardViewButtons">
+        <Link className="genericButton" to={`/decks/${deckid}/cards/${card.id}/edit`}>Edit</Link>
+        <button className="deleteButton" onClick={() => handleDeleteCard(card)}>Delete</button>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { readDeck, updateDeck } from "../utils/api";
+import breadcrumbBar from "./BreadcrumbBar";
 
 function EditDeck() {
     const { deckId } = useParams();
@@ -59,8 +60,15 @@ function EditDeck() {
         }
     };
 
+    const breadcrumbData = [
+        { name: 'Home', url: '/' },
+        { name: deck.name, url: `/decks/${deckId}` },
+        { name: `Edit Deck`, url: `/decks/${deckId}/edit` }
+      ];
+
     return (
         <div>
+            {breadcrumbBar(breadcrumbData)}
             <h2>Edit Deck</h2>
             <form onSubmit={handleSubmit}>
                 <label>

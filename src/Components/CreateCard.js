@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { readDeck, createCard } from "../utils/api";
+import breadcrumbBar from "./BreadcrumbBar";
 
 function CreateCard() {
     const { deckId } = useParams();
@@ -51,8 +52,15 @@ function CreateCard() {
         }
     };
 
+    const breadcrumbData = [
+        { name: 'Home', url: '/' },
+        { name: deck.name, url: `/decks/${deckId}` },
+        { name: `Add Card`, url: `/decks/${deckId}/cards/new` }
+      ];
+
     return (
         <div>
+            {breadcrumbBar(breadcrumbData)}
             <h2>{deck.name}: Add Card</h2>
             <form onSubmit={handleSubmit}>
                 <label>

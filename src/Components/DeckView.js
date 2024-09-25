@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import CardView from "./CardView";
 import { deleteCard } from "../utils/api";
 import { deleteDeck } from "../utils/api";
+import breadcrumbBar from "./BreadcrumbBar";
 
 function DeckView() {
   const { deckId } = useParams();
@@ -61,11 +62,17 @@ function DeckView() {
       } else {
        // Do nothing
       }
-}
+  }
+
+  const breadcrumbData = [
+    { name: 'Home', url: '/' },
+    { name: deck.name, url: `/decks/${deck.id}` }
+  ];
 
   return (
     <div>
-      <div>
+      {breadcrumbBar(breadcrumbData)}
+      <div className="deckView">
         <h1>
           {deck.name}
         </h1>
@@ -81,11 +88,11 @@ function DeckView() {
         <Link className="studyButton" to={`/decks/${deck.id}/cards/new`}>+ Add Cards</Link>
         <button className="deleteButton" onClick={handleDelete}>delete</button>
       </div>
-      <h2>Cards</h2>
+      <h2 style={{marginBottom: "-2rem"}}>Cards</h2>
       {deck.cards &&
-        <ul>
+        <ul className="cardView">
           {deck.cards.map(card =>
-            <CardView card={card} handleDeleteCard={handleDeleteCard} deckid={deck.id}/> // Assuming each card has 'id' and 'front' properties
+            <CardView card={card} handleDeleteCard={handleDeleteCard} deckid={deck.id}/>
           )}
         </ul>}
     </div>
