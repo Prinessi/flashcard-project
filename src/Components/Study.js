@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { readDeck } from "../utils/api";
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import breadcrumbBar from "./BreadcrumbBar";
 
 function Study() {
   const { deckId } = useParams();
@@ -23,19 +24,11 @@ function Study() {
           }
         }
       };
-
       loadDeck();
-
       return () => abortController.abort();
     },
     [deckId]
   );
-
-  // useEffect(() => {
-  //     console.log(deckId);
-  //     console.log(deck.cards);
-
-  // }, [deckId]);
 
   const handleNextCard = () => {
     if (deck.cards) {
@@ -47,9 +40,9 @@ function Study() {
             "You've reached the last card. Do you want to start over?"
           );
           if (confirmRestart) {
-            return 0; // Reset to the first card if the user confirms
+            return 0; 
           } else {
-            return prevIndex; // Stay on the current card if the user declines
+            return prevIndex; 
           }
         }
       });
@@ -61,16 +54,22 @@ function Study() {
     setFlipped(!flip);
   };
 
-  // If deck is not loaded yet, show a loading message
   if (!deck || !deck.cards) {
     return <h2>Loading deck...</h2>;
   }
 
   const currentCard = deck.cards[currentCardIndex];
 
+  const breadcrumbData = [
+    { name: 'Home', url: '/' },
+    { name: deck.name, url: `/decks/${deck.id}` },
+    { name: 'Study', url: `/decks/${deck.id}/study`}
+  ];
+
   if (deck.cards.length < 3) {
     return (
       <div>
+        {breadcrumbBar(breadcrumbData)}
         <h1>
           Study: {deck.name}
         </h1>
@@ -85,6 +84,7 @@ function Study() {
   } else {
     return (
       <div>
+        {breadcrumbBar(breadcrumbData)}
         <h1>
           Study: {deck.name}
         </h1>

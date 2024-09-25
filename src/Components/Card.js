@@ -11,7 +11,7 @@ function Card({card, count, currentCardIndex, handleNextCard, handleFlip, flip})
     } else {
         return(
             <div className="card">
-                <h3>Card: {currentCardIndex + 1} of {count} </h3>
+                <h3>Card {currentCardIndex + 1} of {count} </h3>
                 <p>{card.front}</p>
                 <button className="genericButton" onClick={handleFlip}>Flip</button>
             </div>

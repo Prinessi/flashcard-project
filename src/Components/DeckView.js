@@ -66,7 +66,7 @@ function DeckView() {
 
   const breadcrumbData = [
     { name: 'Home', url: '/' },
-    { name: deck.name, url: `/deck/${deck.id}` }
+    { name: deck.name, url: `/decks/${deck.id}` }
   ];
 
   return (
@@ -92,7 +92,7 @@ function DeckView() {
       {deck.cards &&
         <ul className="cardView">
           {deck.cards.map(card =>
-            <CardView card={card} handleDeleteCard={handleDeleteCard} deckid={deck.id}/> // Assuming each card has 'id' and 'front' properties
+            <CardView card={card} handleDeleteCard={handleDeleteCard} deckid={deck.id}/>
           )}
         </ul>}
     </div>

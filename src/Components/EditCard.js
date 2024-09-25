@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { readDeck, readCard, updateCard } from "../utils/api"; // Assuming updateCard exists in your api file
+import breadcrumbBar from "./BreadcrumbBar";
 
 function EditCard() {
     const { deckId, cardId } = useParams();
@@ -63,8 +64,15 @@ function EditCard() {
         }
     };
 
+    const breadcrumbData = [
+        { name: 'Home', url: '/' },
+        { name: deck.name, url: `/decks/${deck.id}` },
+        { name: `Edit Card`, url: `/decks/${deck.id}/cards/${cardId}/edit` }
+      ];
+
     return (
         <div>
+            {breadcrumbBar(breadcrumbData)}
             <h2>{deck.name}: Edit Card</h2>
             <form onSubmit={handleSubmit}>
                 <label>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; 
 import { createDeck } from "../utils/api";
+import breadcrumbBar from "./BreadcrumbBar";
 
 function CreateDeck() {
     const [formData, setFormData] = useState({
@@ -28,16 +29,20 @@ function CreateDeck() {
         }
     };
 
+    const breadcrumbData = [
+        { name: 'Home', url: '/' },
+        { name: 'Create Deck', url: '/decks/new' },
+      ];
+
     return (
         <div className="createDeck">
+            {breadcrumbBar(breadcrumbData)}
             <h2>Create Deck</h2>
             <form className="createForm" onSubmit={handleSubmit}>
                 <label>
                     <p>Name</p>
-                    <textarea
-                        rows="1"
+                    <input
                         type="text"
-                        cols="80"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
